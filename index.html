@@ -3677,7 +3677,7 @@ tbody tr:hover {
       </article>
       <article class="panel">
         <h2>Ascendancy Order</h2>
-        <ol><li>First 2 points: Gathering Winds for Tailwind speed, evasion, and smoother campaign movement.</li><li>At 4 points, keep Gathering Winds plus Called Shots for safer rares and bosses, or refund into Endless Munitions if clear speed is the priority.</li><li>Final 8-point packages are either Gathering Winds, Endless Munitions, and Mirage Deadeye for clear, or Gathering Winds, Called Shots, Bullseye, and Mirage Deadeye for bossing.</li></ol>
+        <ol><li>First 2 points: Gathering Winds for Tailwind speed, evasion, and smoother campaign movement.</li><li>At 4 points, add Called Shots for automated mark uptime and safer rares or bosses.</li><li>Final 8-point target shown: Gathering Winds, Called Shots, Bullseye, and Mirage Deadeye. Refund with gold only if you intentionally rebuild into a clear-speed package.</li></ol>
       </article>
     </section>
 
@@ -5010,7 +5010,7 @@ tbody tr:hover {
         <h2>Research Notes</h2>
         <p>How the guide was weighted.</p>
       </div>
-      <ul><li>Official 0.5.0 patch notes for the Ice Shot shard freeze change and Deadeye/Mirage context.</li><li>PoE2DB Ice Shot support recommendations: Cold Attunement, Chain, Ice Bite, Longshot, Elemental Armament, Frozen Spite, Pierce, Salvo, and Deliberation.</li><li>poe.ninja live Hardcore filters for Deadeye Ice Shot gear and passive trends.</li></ul>
+      <ul><li>Official 0.5.0 patch notes for the Ice Shot shard freeze change and passive-tree refund context.</li><li>PoE2DB Ice Shot data for Tier 9 timing, 80 percent arrow physical-to-cold conversion, shard conversion, and support recommendations.</li><li>poe.ninja, Mobalytics, and PlayFunc/Fubgun references for Deadeye Ice Shot trends: physical bow scaling, attack speed, crit, Freezing Mark, Snipe/Barrage, Herald of Ice, Wind Dancer, life, evasion, and resistances.</li><li>Path of Building 2 formulas weighted base physical damage, conversion, increased/more damage, attack speed, hit chance, crit expectation, penetration, life, evasion, and resistances. Enemy-health conditional nodes were scored against enemies at 95 percent health.</li></ul>
     </section>
 
     <section class="guide-section">
@@ -5019,7 +5019,7 @@ tbody tr:hover {
         <p>Primary references and live filters used for the build decisions.</p>
       </div>
       <div class="source-grid">
-        <a href="https://www.pathofexile.com/forum/view-thread/3932540">Official 0.5.0 patch notes</a><a href="https://poe2db.tw/us/Lightning_Arrow">PoE2DB Lightning Arrow</a><a href="https://poe2db.tw/us/Ice_Shot">PoE2DB Ice Shot</a><a href="https://poe2db.tw/us/Lightning_Rod">PoE2DB Lightning Rod</a><a href="https://poe2db.tw/us/Poisonburst_Arrow">PoE2DB Poisonburst Arrow</a><a href="https://poe2db.tw/us/Gas_Arrow">PoE2DB Gas Arrow</a><a href="https://poe2db.tw/us/Detonating_Arrow">PoE2DB Detonating Arrow</a><a href="https://poe2db.tw/us/Tornado_Shot">PoE2DB Tornado Shot</a><a href="https://www.poe2db.info/en/item-classes/Bow">PoE2DB bow bases</a><a href="https://www.poe2wiki.net/wiki/Essence">PoE2 Wiki essences</a><a href="https://www.poe2wiki.net/wiki/Omen">PoE2 Wiki omens</a><a href="https://www.poe2wiki.net/wiki/Deadeye">PoE2 Wiki Deadeye</a><a href="https://www.poe2wiki.net/wiki/Pathfinder">PoE2 Wiki Pathfinder</a><a href="https://poe.ninja/poe2/builds/">poe.ninja PoE2 builds</a>
+        <a href="https://www.pathofexile.com/forum/view-thread/3932540">Official 0.5.0 patch notes</a><a href="https://poe2db.tw/us/Lightning_Arrow">PoE2DB Lightning Arrow</a><a href="https://poe2db.tw/us/Ice_Shot">PoE2DB Ice Shot</a><a href="https://poe2db.tw/us/Lightning_Rod">PoE2DB Lightning Rod</a><a href="https://poe2db.tw/us/Poisonburst_Arrow">PoE2DB Poisonburst Arrow</a><a href="https://poe2db.tw/us/Gas_Arrow">PoE2DB Gas Arrow</a><a href="https://poe2db.tw/us/Detonating_Arrow">PoE2DB Detonating Arrow</a><a href="https://poe2db.tw/us/Tornado_Shot">PoE2DB Tornado Shot</a><a href="https://www.poe2db.info/en/item-classes/Bow">PoE2DB bow bases</a><a href="https://www.poe2wiki.net/wiki/Essence">PoE2 Wiki essences</a><a href="https://www.poe2wiki.net/wiki/Omen">PoE2 Wiki omens</a><a href="https://www.poe2wiki.net/wiki/Deadeye">PoE2 Wiki Deadeye</a><a href="https://www.poe2wiki.net/wiki/Pathfinder">PoE2 Wiki Pathfinder</a><a href="https://poe.ninja/poe2/pob/4cb0">poe.ninja level 90 Ice Shot Deadeye</a><a href="https://mobalytics.gg/poe-2/builds/syncoh-ice-deadeye">Mobalytics Critical Ice Shot Deadeye</a><a href="https://www.playfunc.com/en/poe2/builds/78090d3f-e79f-415c-b506-ad2738aeb3f7">PlayFunc 0.5 Fubgun Ice Shot</a><a href="https://github.com/grindinggear/poe2-skilltree-export/blob/0.5.0/data.json">GGG 0.5.0 skill tree data</a>
       </div>
     </section>
   </main>
@@ -8646,13 +8646,13 @@ const SKILL_TREE_IMAGE_HASHES = {
   "assets/skill-tree/bow-variants-45-60.svg": "d4eb3cb3063b",
   "assets/skill-tree/bow-variants-61-75.svg": "a2e8c9c4c292",
   "assets/skill-tree/bow-variants-endgame.svg": "6a0303826339",
-  "assets/skill-tree/ice-shot-1-12.svg": "3010008f846a",
-  "assets/skill-tree/ice-shot-13-22.svg": "17b07a41dac8",
-  "assets/skill-tree/ice-shot-23-31.svg": "6fe2e9ec05e6",
-  "assets/skill-tree/ice-shot-32-44.svg": "f8b5e72cedb3",
-  "assets/skill-tree/ice-shot-45-60.svg": "d1b510caafd4",
-  "assets/skill-tree/ice-shot-61-75.svg": "e2274b0046b2",
-  "assets/skill-tree/ice-shot-endgame.svg": "59109949f456",
+  "assets/skill-tree/ice-shot-1-12.svg": "d89cf138cc49",
+  "assets/skill-tree/ice-shot-13-22.svg": "2b85dc55769e",
+  "assets/skill-tree/ice-shot-23-31.svg": "d632bfc7fbac",
+  "assets/skill-tree/ice-shot-32-44.svg": "a888c24d20fe",
+  "assets/skill-tree/ice-shot-45-60.svg": "23f9f1698571",
+  "assets/skill-tree/ice-shot-61-75.svg": "5d6832115eea",
+  "assets/skill-tree/ice-shot-endgame.svg": "1181ad56d59b",
   "assets/skill-tree/lightning-arrow-1-12.svg": "ae73cd9656ba",
   "assets/skill-tree/lightning-arrow-13-22.svg": "c7d658338c06",
   "assets/skill-tree/lightning-arrow-23-31.svg": "451f5d0ac1c9",
@@ -8757,9 +8757,9 @@ const SKILL_TREE_GUIDES = {
         quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points.",
         ascendancy: "None yet. Ascendancy points are earned from trials later and are not skill points.",
         nodes: [
-          "Open Ranger through Honed Instincts and Blur for projectile speed, attack speed, movement, evasion, and Dexterity.",
-          "Take Clean Shot, then Catlike Agility, using the real projectile damage, attack speed, and evasion smalls around those notables as pathing.",
-          "Accuracy from Eagle Eye is optional early; take it only if hit chance is noticeably falling."
+          "Open through Blur, Catlike Agility, Eagle Eye, and the nearby evasion/accuracy route while Lightning Arrow bridges to Ice Shot.",
+          "The optimizer keeps early Frenzy/Savagery pathing only because it remains valuable once Combat Frenzy and freeze uptime are online.",
+          "Use gold refunds later if your gear makes nearby projectile or bow smalls beat the temporary charge path."
         ]
       },
       "level-13-22": {
@@ -8767,9 +8767,9 @@ const SKILL_TREE_GUIDES = {
         quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
         ascendancy: "Plan Deadeye, but do not spend regular points as if they were ascendancy points.",
         nodes: [
-          "Add Careful Aim and Agile Succession before deep cold scaling.",
-          "Start moving toward Escape Velocity and Essence of the Mountain so Ice Shot has defenses and cold damage ready when it comes online.",
-          "Keep one defensive evasion path completed; a dead Ranger with more damage nodes is still behind."
+          "Move into Split Shot, Forking Projectiles, Piercing Shot, and Agile Sprinter before deep cold scaling.",
+          "These projectile nodes work for the Lightning Arrow bridge and remain useful for Ice Shot shard coverage after the swap.",
+          "Keep the evasion path connected; attack speed and freeze are not enough defense while leveling."
         ]
       },
       "level-23-31": {
@@ -8777,53 +8777,53 @@ const SKILL_TREE_GUIDES = {
         quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
         ascendancy: "First 2 Deadeye points: Gathering Winds. Take Tailwind before greedier Deadeye damage.",
         nodes: [
-          "Finish Escape Velocity and Essence of the Mountain before committing hard to Ice Shot.",
-          "Keep Clean Shot and the nearby projectile damage/attack speed route connected for bow clear and pierce value.",
-          "Delay Hail, Snowpiercer, and Biting Frost if the Act 3 quest points are missing."
+          "Ice Shot is online here; keep Split Shot, Forking Projectiles, Death from Afar, and the projectile-damage smalls connected.",
+          "Prioritize bow attack speed, projectile coverage, and evasion before crit luxury.",
+          "Do not spend into full-life, culling, low-life, poison, or off-weapon clusters; the route assumes enemies are already at 95 percent health."
         ]
       },
       "level-32-44": {
         budget: "Level 44 target: about 55 regular skill points after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
         quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
-        refund: "If Hail and cold penetration are now online, refund temporary accuracy or generic projectile detours that no longer beat the cold route.",
-        ascendancy: "At 4 Deadeye points, keep Gathering Winds plus Called Shots for safer bossing, or refund into Endless Munitions if clear speed is the priority.",
+        refund: "Refund temporary leveling detours only when Storm Swell, Biting Frost, and the projectile package fit inside the point budget.",
+        ascendancy: "4-point target shown: Gathering Winds plus Called Shots for automated mark uptime.",
         nodes: [
-          "With Ice Shot online, finish Hail, Snowpiercer, and Biting Frost, then take Storm Swell only if the pathing supports mixed elemental damage.",
-          "Add Locked On only after accuracy and evasion are stable.",
-          "Do not spend into poison, flask, or lightning-only wheels while this guide is still Ice Shot focused."
+          "Add Storm Swell for cold penetration, Biting Frost for frozen-enemy cold damage, and Unbound Forces for chill magnitude.",
+          "Sniper and Death from Afar are prioritized because the PoB-style hit model rewards distance, crit chance, and projectile hit damage.",
+          "Keep avoiding full-life, culling, low-life, poison, flask, and lightning-only wheels while this guide is Ice Shot focused."
         ]
       },
       "level-45-60": {
         budget: "Level 60 target: about 75 regular skill points after Act 4, or 77 if the first Interlude +2 is done.",
         quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
-        refund: "Gold-refund the 4-point Deadeye bossing setup if you want the 6-point Gathering Winds plus Endless Munitions route shown in the screenshot.",
-        ascendancy: "6-point clear target shown: Gathering Winds plus Endless Munitions. Called Shots remains the defensive alternative.",
+        refund: "Gold-refund redundant campaign travel after the 6-point bossing package and cold penetration route are connected.",
+        ascendancy: "6-point target shown: Gathering Winds, Called Shots, and Bullseye.",
         nodes: [
-          "Add Locked On, Death from Afar, and Sniper for bow range and projectile scaling.",
-          "Use Escape Velocity, Catlike Agility, and life/evasion smalls to keep Cruel and first-map defenses ahead of damage greed.",
-          "Delay deeper crit until bow accuracy and resist gear make crit scaling reliable."
+          "Add Snowpiercer, Vile Wounds, Catlike Agility, and bow critical damage after Storm Swell and Biting Frost.",
+          "Bullseye raises marked-enemy crit value, so crit and mark notables start beating generic projectile filler here.",
+          "Keep enough evasion and resist gear that the first-map tree does not rely only on freeze uptime."
         ]
       },
       "level-61-75": {
         budget: "Level 75 target: 98 regular skill points if all 24 campaign and interlude points are complete.",
         quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
         refund: "Refund early bridge nodes that are only connecting now-dead branches; keep the cold, evasion, projectile, and bow packages.",
-        ascendancy: "8-point Deadeye target shown: Gathering Winds, Endless Munitions, and Mirage Deadeye. Bossing alternative is Gathering Winds, Called Shots, Bullseye, and Mirage Deadeye.",
+        ascendancy: "8-point target shown: Gathering Winds, Called Shots, Bullseye, and Mirage Deadeye.",
         nodes: [
-          "Finish the projectile package: Feathered Fletching, Trick Shot, Multi Shot, Sniper, and the best nearby projectile damage or attack speed nodes.",
-          "Path to jewel sockets only for life, evasion, cold damage, projectile damage, attack speed, or crit jewels.",
-          "Skip poison and flask-damage wheels unless you fully pivot away from Ice Shot."
+          "Finish Quick Fingers, Split Shot, Forking Projectiles, Piercing Shot, Sniper, and Death from Afar.",
+          "The Noble Wolf and Vile Wounds are included for marked-enemy and ailment-hit scaling, not poison scaling.",
+          "Path to jewels only for life, evasion, cold damage, projectile damage, attack speed, crit, or bow damage rolls."
         ]
       },
       "level-endgame": {
         budget: "Endgame / Final Form target: 113 regular skill points at character level 90 (89 from levels plus 24 campaign/weapon-set quest points).",
         quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
         refund: "Treat the level 90 tree as the optimized route. Refund redundant campaign damage, accuracy, or travel points before adding jewels.",
-        ascendancy: "Keep one 8-point Deadeye package. Do not count ascendancy notables as regular skill points.",
+        ascendancy: "Final 8-point Deadeye package shown: Gathering Winds, Called Shots, Bullseye, and Mirage Deadeye. Do not count ascendancy notables as regular skill points.",
         nodes: [
-          "Round out cold penetration and freeze nodes first, then projectile and critical clusters, then luxury jewel sockets.",
-          "Keep enough evasion and life/evasion smalls that Hardcore mapping does not rely only on freeze uptime.",
-          "Skip poison and flask-damage wheels unless you fully pivot away from Ice Shot."
+          "Final route holds Storm Swell, Snowpiercer, Biting Frost, Unbound Forces, Split Shot, Forking Projectiles, Piercing Shot, Quick Fingers, Sniper, Death from Afar, and bow crit.",
+          "The 95 percent enemy-health assumption removes full-life, low-life, and culling nodes from the optimized pool.",
+          "Use jewels only when they beat nearby life, evasion, cold penetration, projectile damage, bow damage, attack speed, or crit nodes."
         ]
       }
     }

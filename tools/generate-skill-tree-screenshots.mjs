@@ -23,11 +23,14 @@ const ASCENDANCY_STARTS = {
   Ranger3: "1583"
 };
 
+const OPTIMIZED_CANDIDATE_LIMIT = 220;
+
 const BASE_WEIGHTS = {
   additionalProjectile: 7,
   ailmentChance: 0,
   ailmentDuration: 0,
   ailmentMagnitude: 0,
+  ailmentAvoid: 0,
   armour: 0.8,
   attackDamage: 0.7,
   attackSpeed: 2.4,
@@ -38,24 +41,36 @@ const BASE_WEIGHTS = {
   coldDamage: 0,
   coldPenetration: 0,
   critical: 0.6,
+  criticalDamage: 0,
+  culling: 0,
   dexterity: 0.4,
+  enemyDamageTaken: 0,
   elementalDamage: 0.8,
   evasion: 0.8,
+  farShot: 0,
   fireDamage: 0,
   firePenetration: 0,
   flask: 0,
   freeze: 0,
+  fork: 0,
+  frenzy: 0,
+  gainAsCold: 0,
   genericDamage: 0.7,
   intelligence: 0.2,
+  leech: 0,
   life: 1.4,
   lightningDamage: 0,
   lightningPenetration: 0,
+  lowLife: 0,
+  mark: 0,
   movement: 1.2,
   physicalDamage: 0.5,
+  pierce: 0,
   poison: 0,
   projectileDamage: 1.4,
   projectileSpeed: 0.8,
   recovery: 0.8,
+  reducedPenalty: 0,
   resist: 1,
   shock: 0,
   shield: 0,
@@ -101,36 +116,55 @@ const GUIDES = {
   "ice-shot": {
     title: "Ice Shot Deadeye",
     start: "50459",
+    route: "optimized",
+    targetEnemyLifeRatio: 0.95,
     weights: {
       ...BASE_WEIGHTS,
-      accuracy: 1.8,
-      attackSpeed: 4.8,
-      bowDamage: 2.4,
-      chain: 5,
-      coldDamage: 3.4,
-      coldPenetration: 6.8,
-      critical: 2.5,
-      dexterity: 1.1,
-      elementalDamage: 2,
-      evasion: 2.1,
-      freeze: 3.8,
-      genericDamage: 1.5,
-      life: 2.5,
-      lightningDamage: 0.5,
-      lightningPenetration: 0.8,
-      movement: 4,
-      projectileDamage: 2.8,
-      projectileSpeed: 2.2,
-      resist: 1.4
+      accuracy: 2.2,
+      ailmentAvoid: 1.2,
+      ailmentMagnitude: 1.5,
+      attackDamage: 2.8,
+      attackSpeed: 5.6,
+      bowDamage: 4.2,
+      chain: 3.6,
+      coldDamage: 3.2,
+      coldPenetration: 8.2,
+      critical: 2.8,
+      criticalDamage: 2.3,
+      culling: -8,
+      dexterity: 1.2,
+      enemyDamageTaken: 3.4,
+      elementalDamage: 2.4,
+      evasion: 2.8,
+      farShot: 5,
+      freeze: 3.4,
+      fork: 2.8,
+      frenzy: 2.4,
+      gainAsCold: 5.6,
+      genericDamage: 2.2,
+      leech: 1.4,
+      life: 3,
+      lightningDamage: 0.2,
+      lightningPenetration: 0.4,
+      lowLife: -40,
+      mark: 3.8,
+      movement: 4.2,
+      physicalDamage: 4.6,
+      pierce: 2.6,
+      projectileDamage: 3.6,
+      projectileSpeed: 1.7,
+      recovery: 1.1,
+      reducedPenalty: 2,
+      resist: 1.8
     },
     panels: {
-      "1-12": { seeds: ["28992", "35987", "42781", "20831"], ascendancy: [] },
-      "13-22": { seeds: ["28992", "35987", "42781", "20831", "50795", "56493"], ascendancy: [] },
-      "23-31": { seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683"], ascendancy: ["30"] },
-      "32-44": { seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336"], ascendancy: ["30", "59913"] },
-      "45-60": { seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336", "56999", "8904", "11526"], ascendancy: ["30", "12033"] },
-      "61-75": { seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336", "56999", "8904", "11526", "35477", "60764", "23221", "47560"], ascendancy: ["30", "12033", "5817"] },
-      endgame: { label: "Final Form", seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336", "56999", "8904", "11526", "35477", "60764", "23221", "47560"], labels: ["45013", "11410"], labelAliases: { "11410": "Damage vs Low Life" }, ascendancy: ["30", "12033", "5817"] }
+      "1-12": { ascendancy: [] },
+      "13-22": { ascendancy: [] },
+      "23-31": { ascendancy: ["30"] },
+      "32-44": { ascendancy: ["30", "59913"] },
+      "45-60": { ascendancy: ["30", "59913", "24226"] },
+      "61-75": { ascendancy: ["30", "59913", "24226", "5817"] },
+      endgame: { label: "Final Form", ascendancy: ["30", "59913", "24226", "5817"] }
     }
   },
   "lightning-arrow": {
@@ -206,6 +240,7 @@ const data = await fetchSkillTreeData();
 
 const nodes = data.nodes;
 const adjacency = buildAdjacency();
+const optimizedCandidateCache = new Map();
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -234,12 +269,13 @@ function buildAdjacency() {
 function writeImageHashesToIndex() {
   const html = fs.readFileSync(INDEX_PATH, "utf8");
   const hashes = formatImageHashes(buildImageHashes());
-  const nextHtml = html.replace(/const SKILL_TREE_IMAGE_HASHES = \{[\s\S]*?\};/, `const SKILL_TREE_IMAGE_HASHES = ${hashes};`);
+  const hashBlockPattern = /const SKILL_TREE_IMAGE_HASHES = \{[\s\S]*?\};/;
 
-  if (nextHtml === html) {
+  if (!hashBlockPattern.test(html)) {
     throw new Error("Could not find SKILL_TREE_IMAGE_HASHES in index.html");
   }
 
+  const nextHtml = html.replace(hashBlockPattern, `const SKILL_TREE_IMAGE_HASHES = ${hashes};`);
   fs.writeFileSync(INDEX_PATH, nextHtml);
 }
 
@@ -274,14 +310,15 @@ async function fetchSkillTreeData() {
 }
 
 function buildRoute(guide, panel, budget) {
-  const regular = buildRegularRoute(guide, panel.seeds, budget);
+  const regular = buildRegularRoute(guide, panel, budget);
   const ascendancy = buildAscendancyRoute(panel.ascendancy);
   const selected = new Set([...regular.selected, ...ascendancy.selected]);
-  const targets = new Set([...panel.seeds, ...panel.ascendancy, ...regular.fillTargets]);
+  const targets = new Set([...(panel.seeds || []), ...panel.ascendancy, ...regular.fillTargets]);
   const labels = new Set(panel.labels || []);
 
   return {
     labelAliases: panel.labelAliases || {},
+    optimizeLabels: guide.route === "optimized",
     regularStart: guide.start,
     selected,
     labels,
@@ -289,10 +326,14 @@ function buildRoute(guide, panel, budget) {
   };
 }
 
-function buildRegularRoute(guide, seeds, budget) {
+function buildRegularRoute(guide, panel, budget) {
+  if (guide.route === "optimized") {
+    return buildOptimizedRegularRoute(guide, budget);
+  }
+
   const selected = new Set([guide.start]);
 
-  for (const target of seeds) {
+  for (const target of panel.seeds || []) {
     addPath(selected, shortestPath(guide.start, target, null));
   }
 
@@ -319,6 +360,217 @@ function buildRegularRoute(guide, seeds, budget) {
   }
 
   return { selected, fillTargets: fillTargets.slice(-14) };
+}
+
+function buildOptimizedRegularRoute(guide, budget) {
+  const selected = new Set([guide.start]);
+
+  while (countRegularSkillPoints(selected, guide.start) < budget) {
+    const remaining = budget - countRegularSkillPoints(selected, guide.start);
+    const expansion = findBestOptimizedExpansion(selected, guide, remaining);
+
+    if (!expansion) {
+      throw new Error(`Could not optimize ${guide.title} to ${budget} skill points`);
+    }
+
+    addPath(selected, expansion.pathIds);
+  }
+
+  return { selected, fillTargets: getOptimizedRouteTargets(selected, guide) };
+}
+
+function findBestOptimizedExpansion(selected, guide, remaining) {
+  let best = null;
+  const pathTree = buildShortestPathTreeFromSelected(selected, guide, remaining);
+
+  for (const candidate of getOptimizedCandidates(guide)) {
+    if (selected.has(candidate.id)) {
+      continue;
+    }
+
+    const pathIds = getPathFromSelectedTree(pathTree, selected, candidate.id);
+
+    if (!pathIds.length) {
+      continue;
+    }
+
+    const score = scoreOptimizedPath(pathIds, guide);
+    const cost = pathIds.length;
+    const rank = score / cost + candidate.score * 0.04 + countSelectedNeighbours(candidate.id, selected) * 0.15 - cost * 0.03;
+
+    if (!best || rank > best.rank || (rank === best.rank && score > best.score)) {
+      best = { pathIds, rank, score };
+    }
+  }
+
+  return best || findBestOptimizedFrontierExpansion(selected, guide);
+}
+
+function getOptimizedCandidates(guide) {
+  if (optimizedCandidateCache.has(guide.title)) {
+    return optimizedCandidateCache.get(guide.title);
+  }
+
+  const candidates = Object.entries(nodes)
+    .filter(([, node]) => canUseRegularNodeForGuide(node, guide))
+    .map(([id, node]) => ({ id, node, score: scoreNode(node, guide.weights) }))
+    .filter(({ id, node, score }) => id !== guide.start && score > 0 && (node.isNotable || score >= 18))
+    .sort((a, b) => b.score - a.score || Number(a.id) - Number(b.id))
+    .slice(0, OPTIMIZED_CANDIDATE_LIMIT);
+
+  optimizedCandidateCache.set(guide.title, candidates);
+  return candidates;
+}
+
+function buildShortestPathTreeFromSelected(selected, guide, maxCost) {
+  const queue = [...selected];
+  const previous = new Map(queue.map((id) => [id, null]));
+  const cost = new Map(queue.map((id) => [id, 0]));
+
+  for (let index = 0; index < queue.length; index++) {
+    const current = queue[index];
+
+    for (const next of adjacency.get(current) || []) {
+      if (previous.has(next)) {
+        continue;
+      }
+
+      const node = nodes[next];
+
+      if (!canUseRegularNodeForGuide(node, guide)) {
+        continue;
+      }
+
+      const nextCost = cost.get(current) + (selected.has(next) ? 0 : 1);
+
+      if (nextCost > maxCost) {
+        continue;
+      }
+
+      previous.set(next, current);
+      cost.set(next, nextCost);
+      queue.push(next);
+    }
+  }
+
+  return { previous };
+}
+
+function getPathFromSelectedTree(pathTree, selected, target) {
+  if (!pathTree.previous.has(target)) {
+    return [];
+  }
+
+  const pathIds = [];
+
+  for (let current = target; current; current = pathTree.previous.get(current)) {
+    if (!selected.has(current)) {
+      pathIds.push(current);
+    }
+  }
+
+  return pathIds.reverse();
+}
+
+function canUseRegularNodeForGuide(node, guide) {
+  if (!node || !canVisit(node, null)) {
+    return false;
+  }
+
+  if (guide.route !== "optimized") {
+    return true;
+  }
+
+  if (node.x < 0) {
+    return false;
+  }
+
+  const text = getSearchableStatText(`${node.name || ""} ${(node.stats || []).join(" ")}`);
+
+  if (!text) {
+    return true;
+  }
+
+  const targetEnemyLifeRatio = guide.targetEnemyLifeRatio ?? 1;
+
+  if (targetEnemyLifeRatio < 1 && text.includes("full life")) {
+    return false;
+  }
+
+  if (targetEnemyLifeRatio > 0.5 && (text.includes("low life") || text.includes("culling strike"))) {
+    return false;
+  }
+
+  if (text.includes("within 2m") || text.includes("exited your presence")) {
+    return false;
+  }
+
+  if (text.includes("maximum life is 1") || text.includes("never deal critical")) {
+    return false;
+  }
+
+  if (text.includes("reduced armour") || text.includes("reduced evasion") || text.includes("reduced critical") || text.includes("more damage over time")) {
+    return false;
+  }
+
+  if (text.includes("spell damage") || text.includes("spell skills") || text.includes("cast speed")) {
+    return false;
+  }
+
+  if (text.includes("crossbow") || text.includes("bolt") || text.includes("quarterstaff") || text.includes("spear") || text.includes("dagger") || text.includes("flail") || text.includes("one-handed")) {
+    return false;
+  }
+
+  if (text.includes("minion") || text.includes("totem") || text.includes("companion") || text.includes("shapeshift") || text.includes("unarmed") || text.includes("empty hand") || text.includes("rage")) {
+    return false;
+  }
+
+  return scoreNodeForPath(node, guide.weights) > -20;
+}
+
+function findBestOptimizedFrontierExpansion(selected, guide) {
+  const candidates = [];
+
+  for (const id of selected) {
+    for (const next of adjacency.get(id) || []) {
+      if (selected.has(next)) {
+        continue;
+      }
+
+      const node = nodes[next];
+
+      if (!canUseRegularNodeForGuide(node, guide)) {
+        continue;
+      }
+
+      candidates.push({ id: next, score: scoreNodeForPath(node, guide.weights) });
+    }
+  }
+
+  const best = candidates.sort((a, b) => b.score - a.score || Number(a.id) - Number(b.id))[0];
+  return best ? { pathIds: [best.id], rank: best.score, score: best.score } : null;
+}
+
+function scoreOptimizedPath(pathIds, guide) {
+  return pathIds.reduce((total, id) => total + scoreNodeForPath(nodes[id], guide.weights), 0);
+}
+
+function scoreNodeForPath(node, weights) {
+  if (!node?.stats?.length) {
+    return 0.15;
+  }
+
+  return scoreNode(node, weights);
+}
+
+function getOptimizedRouteTargets(selected, guide) {
+  return [...selected]
+    .filter((id) => id !== guide.start && isUsefulTarget(id))
+    .map((id) => ({ id, node: nodes[id], score: scoreNode(nodes[id], guide.weights) }))
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => Number(b.node.isNotable) - Number(a.node.isNotable) || b.score - a.score || Number(a.id) - Number(b.id))
+    .slice(0, 22)
+    .map(({ id }) => id);
 }
 
 function buildAscendancyRoute(targets) {
@@ -455,6 +707,18 @@ function scoreStat(stat, weights) {
   const value = numbers.length ? Math.max(...numbers.map(Math.abs)) : 1;
   let score = 0;
 
+  if (stat.includes("low life")) {
+    score += value * weights.lowLife;
+  }
+
+  if (stat.includes("culling strike")) {
+    score += value * weights.culling;
+  }
+
+  if (stat.includes("reduced damage") || stat.includes("reduced critical")) {
+    score -= value * weights.genericDamage * weights.reducedPenalty;
+  }
+
   if (stat.includes("more")) {
     score += value * (weights.moreDamage || weights.genericDamage || 1) * 2.2;
   }
@@ -465,6 +729,14 @@ function scoreStat(stat, weights) {
 
   if (stat.includes("surpassing chance") || stat.includes("chain")) {
     score += value * weights.chain;
+  }
+
+  if (stat.includes("pierce")) {
+    score += value * weights.pierce;
+  }
+
+  if (stat.includes("fork")) {
+    score += value * weights.fork;
   }
 
   if (stat.includes("attack speed") || stat.includes("skill speed")) {
@@ -497,6 +769,10 @@ function scoreStat(stat, weights) {
 
   if (stat.includes("physical damage")) {
     score += value * weights.physicalDamage;
+  }
+
+  if (stat.includes("physical") && stat.includes("extra cold")) {
+    score += value * weights.gainAsCold;
   }
 
   if (stat.includes("cold damage") || stat.includes("extra cold")) {
@@ -535,8 +811,24 @@ function scoreStat(stat, weights) {
     score += value * weights.critical;
   }
 
+  if (stat.includes("critical damage")) {
+    score += value * weights.criticalDamage;
+  }
+
   if (stat.includes("accuracy")) {
     score += value * (weights.accuracy || weights.dexterity);
+  }
+
+  if (stat.includes("marked") || stat.includes("mark effect") || stat.includes("critical weakness")) {
+    score += value * weights.mark;
+  }
+
+  if (stat.includes("farther") || stat.includes("distance travelled")) {
+    score += value * weights.farShot;
+  }
+
+  if (stat.includes("chilled enemies") || stat.includes("frozen by you take") || stat.includes("damage with hits against")) {
+    score += value * weights.enemyDamageTaken;
   }
 
   if (stat.includes("freeze") || stat.includes("frozen") || stat.includes("chill")) {
@@ -591,6 +883,10 @@ function scoreStat(stat, weights) {
     score += value * weights.life;
   }
 
+  if (stat.includes("life leeched") || stat.includes("mana leeched") || stat.includes("leeching")) {
+    score += value * weights.leech;
+  }
+
   if (stat.includes("regenerate")) {
     score += value * weights.recovery * 12;
   }
@@ -605,6 +901,14 @@ function scoreStat(stat, weights) {
 
   if (stat.includes("skill effect duration")) {
     score += value * weights.skillEffectDuration;
+  }
+
+  if (stat.includes("avoid") || stat.includes("reduced duration of ailments") || stat.includes("reduced effect of chill")) {
+    score += value * weights.ailmentAvoid;
+  }
+
+  if (stat.includes("frenzy charge") || stat.includes("power charge")) {
+    score += value * weights.frenzy;
   }
 
   if (stat.includes("strength")) {
@@ -633,6 +937,10 @@ function normalizeStat(stat) {
     .replace(/<[^>]+>/g, "")
     .replace(/[{}]/g, "")
     .toLowerCase();
+}
+
+function getSearchableStatText(stat) {
+  return `${normalizeStat(stat)} ${stat.toLowerCase().replace(/[\[\]{}|<>]/g, " ")}`.replace(/\s+/g, " ");
 }
 
 function countRegularSkillPoints(selected, start) {
@@ -705,13 +1013,13 @@ function renderSvg(title, route, budget) {
     `<text x="36" y="70" fill="#aeb7c8" font-family="Segoe UI, Arial, sans-serif" font-size="17">Gold path = allocated route, cyan ring = priority node, regular skill points: ${normalCount}/${budget}, ascendancy points: ${ascendancyCount}/8 separate</text>`
   ];
 
-  panes.forEach((pane, index) => parts.push(renderPane(pane, route.selected, route.targets, route.labels, route.labelAliases, index)));
+  panes.forEach((pane, index) => parts.push(renderPane(pane, route.selected, route.targets, route.labels, route.labelAliases, route.optimizeLabels, index)));
   parts.push("</svg>");
 
   return parts.join("\n");
 }
 
-function renderPane(pane, selected, targets, labels, labelAliases, index) {
+function renderPane(pane, selected, targets, labels, labelAliases, optimizeLabels, index) {
   const coords = pane.ids.map((id) => nodes[id]).filter((node) => Number.isFinite(node.x) && Number.isFinite(node.y));
   const minX = Math.min(...coords.map((node) => node.x));
   const maxX = Math.max(...coords.map((node) => node.x));
@@ -724,7 +1032,7 @@ function renderPane(pane, selected, targets, labels, labelAliases, index) {
   const targetIds = new Set([...targets].filter((id) => paneSelected.has(id)));
   const defaultLabelIds = [...targetIds].filter((id) => nodes[id].name).slice(0, 18);
   const priorityLabelIds = [...labels].filter((id) => paneSelected.has(id) && nodes[id].name && !defaultLabelIds.includes(id));
-  const labelIds = [...defaultLabelIds, ...priorityLabelIds];
+  const labelIds = getLabelIds([...defaultLabelIds, ...priorityLabelIds], labelAliases, optimizeLabels);
   const scale = Math.min(
     pane.width / Math.max(1, bounds.maxX - bounds.minX),
     (pane.height - 52) / Math.max(1, bounds.maxY - bounds.minY)
@@ -766,19 +1074,105 @@ function renderPane(pane, selected, targets, labels, labelAliases, index) {
     parts.push(`<circle cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${radius}" fill="${fill}" stroke="${stroke}" stroke-width="${isTarget ? 3 : 1.4}" opacity="${opacity}"${filter}/>`);
   }
 
-  labelIds.forEach((id, labelIndex) => {
-    const node = nodes[id];
-    const point = project(node);
-    const anchorRight = point.x < pane.x + pane.width * 0.64;
-    const labelX = anchorRight ? point.x + 14 : point.x - 14;
-    const labelY = point.y + ((labelIndex % 3) - 1) * 18;
-    const label = labelAliases[id] || node.name;
-    const text = label.length > 26 ? `${label.slice(0, 24)}...` : label;
-    parts.push(`<text x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${anchorRight ? "start" : "end"}" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">${escapeXml(text)}</text>`);
-  });
+  for (const label of getLabelPlacements(labelIds, pane, project, labelAliases, optimizeLabels)) {
+    parts.push(renderLabel(label));
+  }
 
   parts.push("</g>", "</g>");
   return parts.join("\n");
+}
+
+function getLabelIds(ids, labelAliases, dedupe) {
+  if (!dedupe) {
+    return ids;
+  }
+
+  const seen = new Set();
+  return ids.filter((id) => {
+    const label = labelAliases[id] || nodes[id].name;
+
+    if (seen.has(label)) {
+      return false;
+    }
+
+    seen.add(label);
+    return true;
+  });
+}
+
+function getLabelPlacements(labelIds, pane, project, labelAliases, avoidCollisions) {
+  const placedBoxes = [];
+  const labels = [];
+
+  labelIds.forEach((id, index) => {
+    const node = nodes[id];
+    const point = project(node);
+    const anchorRight = point.x < pane.x + pane.width * 0.64;
+    const label = labelAliases[id] || node.name;
+    const text = label.length > 26 ? `${label.slice(0, 24)}...` : label;
+    const placement = avoidCollisions
+      ? placeReadableLabel(point, pane, text, anchorRight, placedBoxes)
+      : placeLegacyLabel(point, text, anchorRight, index);
+
+    placedBoxes.push(placement.box);
+    labels.push(placement);
+  });
+
+  return labels;
+}
+
+function placeReadableLabel(point, pane, text, anchorRight, placedBoxes) {
+  const sides = [anchorRight, !anchorRight];
+  const xOffsets = [16, 42, 70];
+  const yOffsets = [0, -22, 22, -44, 44, -66, 66, -88, 88];
+
+  for (const side of sides) {
+    for (const xOffset of xOffsets) {
+      for (const yOffset of yOffsets) {
+        const labelX = side ? point.x + xOffset : point.x - xOffset;
+        const labelY = point.y + yOffset;
+        const box = getLabelBox(labelX, labelY, text, side);
+
+        if (labelBoxFitsPane(box, pane) && !labelBoxCollides(box, placedBoxes)) {
+          return { anchorRight: side, box, labelX, labelY, text };
+        }
+      }
+    }
+  }
+
+  return placeLegacyLabel(point, text, anchorRight, placedBoxes.length);
+}
+
+function placeLegacyLabel(point, text, anchorRight, index) {
+  const labelX = anchorRight ? point.x + 14 : point.x - 14;
+  const labelY = point.y + ((index % 3) - 1) * 18;
+  return { anchorRight, box: getLabelBox(labelX, labelY, text, anchorRight), labelX, labelY, text };
+}
+
+function getLabelBox(labelX, labelY, text, anchorRight) {
+  const width = Math.min(220, text.length * 8.2);
+  return {
+    x1: anchorRight ? labelX : labelX - width,
+    x2: anchorRight ? labelX + width : labelX,
+    y1: labelY - 20,
+    y2: labelY + 8
+  };
+}
+
+function labelBoxFitsPane(box, pane) {
+  const minX = pane.x + 8;
+  const maxX = pane.x + pane.width - 8;
+  const minY = pane.y + 60;
+  const maxY = pane.y + pane.height - 8;
+  return box.x1 >= minX && box.x2 <= maxX && box.y1 >= minY && box.y2 <= maxY;
+}
+
+function labelBoxCollides(box, placedBoxes) {
+  return placedBoxes.some((placed) => box.x1 < placed.x2 && box.x2 > placed.x1 && box.y1 < placed.y2 && box.y2 > placed.y1);
+}
+
+function renderLabel(label) {
+  return `<text x="${label.labelX.toFixed(1)}" y="${label.labelY.toFixed(1)}" text-anchor="${label.anchorRight ? "start" : "end"}" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">${escapeXml(label.text)}</text>`;
 }
 
 function getBackgroundNodes(bounds, type, ids) {
