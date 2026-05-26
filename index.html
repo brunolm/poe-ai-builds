@@ -8638,6 +8638,277 @@ const frame = document.getElementById("guide-frame");
 const note = document.getElementById("active-guide-note");
 const tabs = Array.from(document.querySelectorAll("[data-guide-tab]"));
 
+const SKILL_TREE_GUIDES = {
+  "source-shield-wall": {
+    panels: {
+      "levels-1-12": {
+        budget: "Level 12 target: 11 passives from levels, up to 15 if Crowbell and Una's Lute are done.",
+        quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points; postpone the last listed nodes if either is skipped.",
+        nodes: [
+          "Take the Warrior start through Melee Damage into Brutal, then use the Armour branch into Relentless.",
+          "Spend spare early points on Armour Mastery smalls and mace/stun travel, not shield-only scaling yet.",
+          "If you are short on points, keep damage first for campaign pace and add Relentless after the quest books."
+        ]
+      },
+      "levels-13-22": {
+        budget: "Level 22 target: about 25 passives, or 27 if Kabala in Act 2 is already done.",
+        quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
+        nodes: [
+          "Finish Sturdy Metal, Smash, and Defender's Resolve from the early Warrior wheel.",
+          "Take Mace Mastery while still on two-hand mace; take Block Mastery first if the shield swap is imminent.",
+          "Do not overinvest in generic two-hand damage because Shield Wall soon moves the damage budget onto the shield."
+        ]
+      },
+      "levels-23-31": {
+        budget: "Level 31 target: about 38 passives from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
+        quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
+        nodes: [
+          "After Shield Wall, path through Polished Iron and Unstoppable Barrier before chasing more weapon damage.",
+          "Add Beef, Hard to Kill, and Grounded in the Earth when strength, recovery, or stun safety are the limiting problems.",
+          "Use shield, block, armour, and life smalls as the filler pathing between notables."
+        ]
+      },
+      "levels-32-44": {
+        budget: "Level 44 target: about 55 passives after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
+        quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
+        nodes: [
+          "Add Vigilance for block recovery and maximum block value, then take Prism Guard and Projectile Bulwark for elemental and projectile hits.",
+          "Take Unbreaking if stun or elemental ailment pressure is causing deaths.",
+          "Avoid Blood Magic and Vaal Pact for this version; the guide wants flask recovery, regen, and defensive uptime."
+        ]
+      },
+      "levels-45-60": {
+        budget: "Level 60 target: about 75 passives after Act 4, or 77 if the first Interlude +2 is done.",
+        quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
+        nodes: [
+          "Move into the shield cluster for Towering Shield, Dazing Blocks, and Frightening Shield.",
+          "Add Heavy Armour once your strength requirements on helmet, gloves, and boots are meaningful.",
+          "Ascendancy split: Titan prefers Stone Skin into Hulking Form; Smith waits for Smith's Masterwork and a normal high-armour body."
+        ]
+      },
+      "levels-61-75": {
+        budget: "Level 75 target: 98 passives if all 24 campaign and interlude points are complete.",
+        quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
+        nodes: [
+          "Take Spiked Shield and Shield Expertise once the equipped shield has real armour and block value.",
+          "Fill Life Mastery, Armour Mastery, and Block Mastery smalls before taking speculative damage wheels.",
+          "Only path to a jewel socket if the jewel beats nearby life, armour, shield damage, or block nodes."
+        ]
+      },
+      "levels-endgame": {
+        budget: "Endgame target: 98 passives at level 75, 113 at level 90, and 123 at level 100 after all quest points.",
+        quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
+        nodes: [
+          "Round out Heavy Armour, Prism Guard, Projectile Bulwark, Spiked Shield, Shield Expertise, and the best remaining life/armour smalls.",
+          "Titan finish: Hulking Form, Stone Skin, then Mysterious Lineage if the character needs more maximum life. Smith finish: Smith's Masterwork plus the best body-armour grant nodes.",
+          "Extra points go to high-value jewels and defensive masteries, not weapon DPS that does not scale Shield Wall well."
+        ]
+      }
+    }
+  },
+  "source-ice-shot": {
+    panels: {
+      "level-1-12": {
+        budget: "Level 12 target: 11 passives from levels, up to 15 if Crowbell and Una's Lute are done.",
+        quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points.",
+        nodes: [
+          "Open Ranger through Honed Instincts and Blur for projectile speed, attack speed, movement, evasion, and Dexterity.",
+          "Take Clean Shot, then Catlike Agility, using Projectile Mastery or Evasion Mastery smalls as pathing.",
+          "Accuracy from Eagle Eye is optional early; take it only if hit chance is noticeably falling."
+        ]
+      },
+      "level-13-22": {
+        budget: "Level 22 target: about 25 passives, or 27 if Kabala in Act 2 is already done.",
+        quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
+        nodes: [
+          "Add Careful Aim, Agile Succession, and Escape Velocity before deep cold scaling.",
+          "Start moving toward Essence of the Mountain and Hail so Ice Shot has cold damage ready when it comes online.",
+          "Keep one defensive evasion path completed; a dead Ranger with more damage nodes is still behind."
+        ]
+      },
+      "level-23-31": {
+        budget: "Level 31 target: about 38 passives from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
+        quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
+        nodes: [
+          "Finish Essence of the Mountain, Hail, Snowpiercer, and Biting Frost before swapping hard into Ice Shot.",
+          "Keep Clean Shot and Projectile Mastery connected for bow clear and pierce value.",
+          "First Ascension target is Gathering Winds; take Tailwind before greedier Deadeye damage."
+        ]
+      },
+      "level-32-44": {
+        budget: "Level 44 target: about 55 passives after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
+        quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
+        nodes: [
+          "With Ice Shot online, finish Biting Frost and Snowpiercer, then take Storm Swell if the pathing also supports Lightning Rod or mixed elemental damage.",
+          "Add Locked On or Critical Mastery only after accuracy and evasion are stable.",
+          "Second Ascension usually goes Endless Munitions for clear; Called Shots is the defensive bossing alternative."
+        ]
+      },
+      "level-45-60": {
+        budget: "Level 60 target: about 75 passives after Act 4, or 77 if the first Interlude +2 is done.",
+        quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
+        nodes: [
+          "Add Death from Afar, Sniper, Far Sighted, and Feathered Fletching for bow range and projectile scaling.",
+          "Use Escape Velocity, Catlike Agility, and Evasion Mastery to keep Cruel and first-map defenses ahead of damage greed.",
+          "Take Critical Mastery only after bow accuracy and resist gear make crit scaling reliable."
+        ]
+      },
+      "level-61-75": {
+        budget: "Level 75 target: 98 passives if all 24 campaign and interlude points are complete.",
+        quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
+        nodes: [
+          "Finish the projectile package: Feathered Fletching, Trick Shot, Multi Shot, Sniper, and the best nearby Projectile Mastery.",
+          "Deadeye end path is Gathering Winds, Endless Munitions, Called Shots into Bullseye, then Mirage Deadeye if uptime matters.",
+          "Path to jewel sockets only for life, evasion, cold damage, projectile damage, attack speed, or crit jewels."
+        ]
+      },
+      "level-endgame": {
+        budget: "Endgame target: 98 passives at level 75, 113 at level 90, and 123 at level 100 after all quest points.",
+        quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
+        nodes: [
+          "Round out cold penetration and freeze nodes first, then projectile and critical clusters, then luxury jewel sockets.",
+          "Keep enough Evasion Mastery and life/evasion smalls that Hardcore mapping does not rely only on freeze uptime.",
+          "Skip poison and flask-damage wheels unless you fully pivot away from Ice Shot."
+        ]
+      }
+    }
+  },
+  "source-lightning-arrow": {
+    panels: {
+      "level-1-12": {
+        budget: "Level 12 target: 11 passives from levels, up to 15 if Crowbell and Una's Lute are done.",
+        quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points.",
+        nodes: [
+          "Open Ranger through Honed Instincts, Blur, Clean Shot, and Catlike Agility.",
+          "Take Projectile Mastery smalls before deep lightning scaling; Lightning Arrow needs clear speed and attack feel immediately.",
+          "Take Eagle Eye only if hit chance drops; otherwise keep moving toward lightning and projectile notables."
+        ]
+      },
+      "level-13-22": {
+        budget: "Level 22 target: about 25 passives, or 27 if Kabala in Act 2 is already done.",
+        quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
+        nodes: [
+          "Add Careful Aim and Agile Succession, then path into General Electric.",
+          "Take Spreading Shocks and Thunderstruck once shock uptime is real against rares.",
+          "Keep one Evasion Mastery route active; speed and evasion are the Hardcore layer while packs die."
+        ]
+      },
+      "level-23-31": {
+        budget: "Level 31 target: about 38 passives from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
+        quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
+        nodes: [
+          "Finish Essence of the Storm, Surging Currents, and Lightning Mastery for the Lightning Arrow plus Lightning Rod package.",
+          "Take Storm Swell if the path gives both lightning and cold penetration value; otherwise stay on projectile damage.",
+          "First Ascension target is Gathering Winds, then choose Endless Munitions or Called Shots based on boss pressure."
+        ]
+      },
+      "level-32-44": {
+        budget: "Level 44 target: about 55 passives after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
+        quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
+        nodes: [
+          "Add Harness the Elements, Projectile Mastery, and Escape Velocity after the core lightning cluster is done.",
+          "Use Harmonic Generator or Electrotherapy only if shock and electrocute are actually part of the setup.",
+          "Do not spend toward poison or cold-only wheels while this guide is still Lightning Arrow focused."
+        ]
+      },
+      "level-45-60": {
+        budget: "Level 60 target: about 75 passives after Act 4, or 77 if the first Interlude +2 is done.",
+        quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
+        nodes: [
+          "Take Death from Afar, Sniper, Feathered Fletching, and Trick Shot as the bow starts scaling beyond campaign gear.",
+          "Add Critical Mastery and Locked On only when accuracy, bow base, and crit rolls justify them.",
+          "Keep Escape Velocity, Catlike Agility, and Evasion Mastery filled before first maps."
+        ]
+      },
+      "level-61-75": {
+        budget: "Level 75 target: 98 passives if all 24 campaign and interlude points are complete.",
+        quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
+        nodes: [
+          "Finish Multi Shot, Feathered Fletching, Trick Shot, Sniper, Death from Afar, and the best remaining Projectile Mastery.",
+          "Deadeye end path is Gathering Winds, Endless Munitions, Called Shots into Bullseye, then Mirage Deadeye if boss uptime needs it.",
+          "Jewel sockets need life, evasion, projectile damage, lightning damage, attack speed, or crit to beat nearby passives."
+        ]
+      },
+      "level-endgame": {
+        budget: "Endgame target: 98 passives at level 75, 113 at level 90, and 123 at level 100 after all quest points.",
+        quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
+        nodes: [
+          "Finish lightning penetration and shock nodes first, projectile and critical nodes second, then jewels and luxury evasion.",
+          "If single target still feels weak, favor Lightning Rod-compatible projectile and shock scaling over generic clear speed.",
+          "Skip cold-only, poison, and flask-damage wheels unless you intentionally move to another bow guide."
+        ]
+      }
+    }
+  },
+  "source-other-bow-variants": {
+    panels: {
+      "level-1-12": {
+        budget: "Level 12 target: 11 passives from levels, up to 15 if Crowbell and Una's Lute are done.",
+        quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points.",
+        nodes: [
+          "Use the shared Ranger start: Honed Instincts, Blur, Clean Shot, and Catlike Agility.",
+          "Pathfinder poison can take Combat Alchemy early; Deadeye fire or Tornado should stay on Projectile Mastery.",
+          "Do not split into poison, lightning, and fire at once. Pick the variant before spending deep points."
+        ]
+      },
+      "level-13-22": {
+        budget: "Level 22 target: about 25 passives, or 27 if Kabala in Act 2 is already done.",
+        quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
+        nodes: [
+          "Poison Pathfinder path: Crippling Toxins, Intense Dose, and Lasting Toxins.",
+          "Deadeye bridge path: Careful Aim, General Electric, and the Projectile Mastery route until the final skill is chosen.",
+          "Keep evasion travel because every variant still needs Ranger defenses before maps."
+        ]
+      },
+      "level-23-31": {
+        budget: "Level 31 target: about 38 passives from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
+        quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
+        nodes: [
+          "Poison route: Low Tolerance and Stacking Toxins are the priority notables once poison is committed.",
+          "Fire or Tornado route: take Precision Salvo, Ricochet, and Projectile Mastery instead of poison wheels.",
+          "First Ascension: Pathfinder takes Enduring Elixirs; Deadeye takes Gathering Winds."
+        ]
+      },
+      "level-32-44": {
+        budget: "Level 44 target: about 55 passives after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
+        quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
+        nodes: [
+          "Gas/Poison route: add Wasting, Efficient Alchemy, Imbibed Power, and Crystal Elixir as flask uptime improves.",
+          "Detonating Arrow route: add Searing Heat, Fire Mastery, Primal Sundering, and Forces of Nature.",
+          "Tornado route: prioritize projectile speed and extra projectile value through Ricochet, Feathered Fletching, and Trick Shot."
+        ]
+      },
+      "level-45-60": {
+        budget: "Level 60 target: about 75 passives after Act 4, or 77 if the first Interlude +2 is done.",
+        quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
+        nodes: [
+          "Pathfinder poison should have Low Tolerance, Stacking Toxins, Wasting, Efficient Alchemy, and Imbibed Power by this point.",
+          "Deadeye fire should lean on Searing Heat, Forces of Nature, Projectile Mastery, and critical/projectile nodes.",
+          "Deadeye Tornado should delay expensive crit until the bow and projectile count make Tornado Shot worth the points."
+        ]
+      },
+      "level-61-75": {
+        budget: "Level 75 target: 98 passives if all 24 campaign and interlude points are complete.",
+        quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
+        nodes: [
+          "Pathfinder finish: Enduring Elixirs, Sustainable Practices, Overwhelming Toxicity, then Path Seeker if you want the extra passive-point package.",
+          "Deadeye finish: Gathering Winds, Endless Munitions or Called Shots, Bullseye, then Mirage Deadeye for Detonating or Tornado uptime.",
+          "Normal tree extras should match the variant: poison duration/magnitude, fire penetration, or projectile/crit. Do not buy all three."
+        ]
+      },
+      "level-endgame": {
+        budget: "Endgame target: 98 passives at level 75, 113 at level 90, and 123 at level 100 after all quest points. Pathfinder can add up to 6 more from Path Seeker.",
+        quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
+        nodes: [
+          "Poison endgame: finish Low Tolerance, Stacking Toxins, Lasting Toxins, Wasting, Efficient Alchemy, Imbibed Power, and poison jewels.",
+          "Detonating endgame: finish Fire Mastery, Searing Heat, Forces of Nature, projectile damage, and critical nodes only if the bow supports crit.",
+          "Tornado endgame: finish Multi Shot, Feathered Fletching, Trick Shot, Sniper, Death from Afar, and projectile jewels."
+        ]
+      }
+    }
+  }
+};
+
 function activateGuide(tab) {
   const source = document.getElementById(tab.dataset.source);
 
@@ -8652,6 +8923,7 @@ function activateGuide(tab) {
   }
 
   frame.title = tab.dataset.title;
+  frame.onload = () => injectSkillTreePlans(tab.dataset.source);
   frame.srcdoc = source.value;
   note.textContent = tab.dataset.note;
 }
@@ -8679,6 +8951,180 @@ for (const tab of tabs) {
 }
 
 activateGuide(tabs[0]);
+
+function injectSkillTreePlans(sourceId) {
+  const guide = SKILL_TREE_GUIDES[sourceId];
+  const guideDocument = frame.contentDocument;
+
+  if (!guide || !guideDocument) {
+    return;
+  }
+
+  injectSkillTreeStyles(guideDocument);
+  injectSkillTreeSourceLinks(guideDocument);
+
+  for (const [panelId, plan] of Object.entries(guide.panels)) {
+    const panel = guideDocument.getElementById(panelId);
+
+    if (!panel || panel.querySelector(".skill-tree-plan")) {
+      continue;
+    }
+
+    const card = createSkillTreePlan(guideDocument, plan);
+    const body = panel.querySelector(".body") || panel;
+    const levelHeader = body.querySelector(".level-header");
+    const firstHeading = body.querySelector("h3");
+
+    if (levelHeader) {
+      levelHeader.after(card);
+      continue;
+    }
+
+    if (firstHeading) {
+      firstHeading.before(card);
+      continue;
+    }
+
+    body.prepend(card);
+  }
+}
+
+function injectSkillTreeStyles(document) {
+  if (document.getElementById("skill-tree-plan-styles")) {
+    return;
+  }
+
+  const style = document.createElement("style");
+  style.id = "skill-tree-plan-styles";
+  style.textContent = `
+.skill-tree-plan {
+  margin: 14px 0 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel, #20201c));
+}
+
+.skill-tree-plan h3 {
+  margin-top: 0;
+}
+
+.skill-tree-plan p {
+  margin: 0 0 10px;
+  color: var(--muted);
+}
+
+.skill-tree-plan ul {
+  margin-bottom: 0;
+}
+
+.skill-tree-plan strong {
+  color: var(--accent);
+}
+`;
+  document.head.append(style);
+}
+
+function injectSkillTreeSourceLinks(document) {
+  const sourceList = document.querySelector(".sources");
+
+  if (sourceList && !sourceList.querySelector("[data-skill-tree-source]")) {
+    appendSkillTreeListSource(document, sourceList);
+  }
+
+  const sourceGrid = document.querySelector(".source-grid");
+
+  if (sourceGrid && !sourceGrid.querySelector("[data-skill-tree-source]")) {
+    appendSkillTreeGridSource(document, sourceGrid);
+  }
+}
+
+function appendSkillTreeListSource(document, sourceList) {
+  const item = document.createElement("li");
+  item.dataset.skillTreeSource = "true";
+
+  const exportLink = createSourceLink(
+    document,
+    "https://github.com/grindinggear/poe2-skilltree-export/tree/0.5.0",
+    "GGG 0.5.0 passive tree export"
+  );
+  const treeLink = createSourceLink(
+    document,
+    "https://www.poe2wiki.net/wiki/Passive_skill_tree",
+    "PoE2 Wiki passive skill tree"
+  );
+  const questLink = createSourceLink(
+    document,
+    "https://www.poe2wiki.net/wiki/Book_of_Specialisation",
+    "Book of Specialisation"
+  );
+  const campaignLink = createSourceLink(
+    document,
+    "https://mobalytics.gg/poe-2/guides/0-5-campaign-checklist-stats-rewards-skillpoints-and-more",
+    "Mobalytics 0.5 campaign checklist"
+  );
+
+  for (const link of [exportLink, treeLink, questLink, campaignLink]) {
+    link.dataset.skillTreeSource = "true";
+  }
+
+  item.append(exportLink, " and ", treeLink, " - node names and level/quest point totals; ", questLink, " and ", campaignLink, " - campaign quest point rewards.");
+  sourceList.append(item);
+}
+
+function appendSkillTreeGridSource(document, sourceGrid) {
+  const links = [
+    ["GGG 0.5.0 passive tree export", "https://github.com/grindinggear/poe2-skilltree-export/tree/0.5.0"],
+    ["PoE2 Wiki passive skill tree", "https://www.poe2wiki.net/wiki/Passive_skill_tree"],
+    ["Book of Specialisation quest points", "https://www.poe2wiki.net/wiki/Book_of_Specialisation"],
+    ["Mobalytics 0.5 campaign checklist", "https://mobalytics.gg/poe-2/guides/0-5-campaign-checklist-stats-rewards-skillpoints-and-more"]
+  ];
+
+  for (const [label, href] of links) {
+    const link = createSourceLink(document, href, label);
+    link.dataset.skillTreeSource = "true";
+    sourceGrid.append(link);
+  }
+}
+
+function createSkillTreePlan(document, plan) {
+  const card = document.createElement("section");
+  card.className = "skill-tree-plan";
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Skill Tree Nodes";
+  card.append(heading);
+
+  appendPlanLine(document, card, "Budget", plan.budget);
+  appendPlanLine(document, card, "Quest points", plan.quest);
+
+  const list = document.createElement("ul");
+
+  for (const node of plan.nodes) {
+    const item = document.createElement("li");
+    item.textContent = node;
+    list.append(item);
+  }
+
+  card.append(list);
+  return card;
+}
+
+function appendPlanLine(document, card, label, value) {
+  const line = document.createElement("p");
+  const strong = document.createElement("strong");
+  strong.textContent = `${label}: `;
+  line.append(strong, value);
+  card.append(line);
+}
+
+function createSourceLink(document, href, label) {
+  const link = document.createElement("a");
+  link.href = href;
+  link.textContent = label;
+  return link;
+}
   </script>
 </body>
 </html>
