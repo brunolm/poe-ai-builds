@@ -7243,7 +7243,7 @@ tbody tr:hover {
       </article>
       <article class="panel">
         <h2>Ascendancy Order</h2>
-        <ol><li>Pathfinder poison: Enduring Elixirs first, then Overwhelming Toxicity, then Sustainable Practices. Path Seeker is an 8-point package choice, not free extra points.</li><li>Deadeye fire or Tornado: use one 8-point package, either Gathering Winds plus Endless Munitions plus Mirage Deadeye for clear, or Gathering Winds plus Called Shots plus Bullseye plus Mirage Deadeye for bossing.</li><li>For Hardcore, do not take pure damage ascendancy choices before your movement, flask, evasion, and resist problems are solved.</li></ol>
+        <ol><li>Pathfinder poison: Enduring Elixirs first, then Overwhelming Toxicity, then Sustainable Practices, then Relentless Pursuit for the 113-point Final Form tree. Path Seeker is an optional respec only if you also plan around the extra regular points it grants.</li><li>Deadeye fire or Tornado: use one 8-point package, either Gathering Winds plus Endless Munitions plus Mirage Deadeye for clear, or Gathering Winds plus Called Shots plus Bullseye plus Mirage Deadeye for bossing.</li><li>For Hardcore, do not take pure damage ascendancy choices before your movement, flask, evasion, and resist problems are solved.</li></ol>
       </article>
     </section>
 
@@ -8643,7 +8643,7 @@ const SKILL_TREE_GUIDES = {
     imageSlug: "shield-wall",
     panels: {
       "levels-1-12": {
-        budget: "Level 12 target: 11 regular passives from levels, up to 15 if Crowbell and Una's Lute are done.",
+        budget: "Level 12 target: 11 regular skill points from levels, up to 15 if Crowbell and Una's Lute are done.",
         quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points; postpone the last listed nodes if either is skipped.",
         ascendancy: "None yet. Do not reserve regular skill points for ascendancy; it has its own limited point pool.",
         nodes: [
@@ -8653,7 +8653,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "levels-13-22": {
-        budget: "Level 22 target: about 25 regular passives, or 27 if Kabala in Act 2 is already done.",
+        budget: "Level 22 target: about 25 regular skill points, or 27 if Kabala in Act 2 is already done.",
         quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
         ascendancy: "Still separate. First trial points can be planned, but they do not replace passive skill points.",
         nodes: [
@@ -8663,7 +8663,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "levels-23-31": {
-        budget: "Level 31 target: about 38 regular passives from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
+        budget: "Level 31 target: about 38 regular skill points from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
         quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
         ascendancy: "First 2 ascendancy points: Titan starts Mysterious Lineage for HC life; Smith waits for Smith's Masterwork only if you commit to the normal-body setup.",
         nodes: [
@@ -8673,7 +8673,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "levels-32-44": {
-        budget: "Level 44 target: about 55 regular passives after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
+        budget: "Level 44 target: about 55 regular skill points after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
         quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
         refund: "Start dropping temporary strength or recovery detours once Vigilance, Prism Guard, Projectile Bulwark, and Unbreaking fit inside the point budget.",
         ascendancy: "Titan and Smith are separate 4-point plans. Do not select both paths on the same character.",
@@ -8684,7 +8684,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "levels-45-60": {
-        budget: "Level 60 target: about 75 regular passives after Act 4, or 77 if the first Interlude +2 is done.",
+        budget: "Level 60 target: about 75 regular skill points after Act 4, or 77 if the first Interlude +2 is done.",
         quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
         refund: "Use gold refunds to collapse the campaign route into the shield route; keep only stat detours your current gear still requires.",
         ascendancy: "Titan default takes Mysterious Lineage first, then Stone Skin. Smith's Masterwork is an alternative, not an addition to Titan.",
@@ -8695,7 +8695,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "levels-61-75": {
-        budget: "Level 75 target: 98 regular passives if all 24 campaign and interlude points are complete.",
+        budget: "Level 75 target: 98 regular skill points if all 24 campaign and interlude points are complete.",
         quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
         refund: "Refund any temporary two-hand, strength, or recovery nodes that no longer beat the shield clusters and nearby defenses.",
         ascendancy: "Titan progresses through Stone Skin and Colossal Capacity toward Hulking Form. Smith remains a separate rebuild path around Smith's Masterwork.",
@@ -8706,7 +8706,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "levels-endgame": {
-        budget: "Level 90 target: 113 regular passives (89 from levels plus 24 campaign/weapon-set quest points). Level 100's 123-point ceiling is luxury, not the target build.",
+        budget: "Endgame / Final Form target: 113 regular skill points at character level 90 (89 from levels plus 24 campaign/weapon-set quest points).",
         quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
         refund: "Treat the screenshot as the optimized level 90 target. Refund redundant campaign bridges, then spend leftover points on jewels or the best nearby defensive smalls.",
         ascendancy: "Titan 8-point target shown: Mysterious Lineage, Stone Skin, Colossal Capacity, and Hulking Form. Smith uses a different 8-point rebuild, not extra points.",
@@ -8722,7 +8722,7 @@ const SKILL_TREE_GUIDES = {
     imageSlug: "ice-shot",
     panels: {
       "level-1-12": {
-        budget: "Level 12 target: 11 regular passives from levels, up to 15 if Crowbell and Una's Lute are done.",
+        budget: "Level 12 target: 11 regular skill points from levels, up to 15 if Crowbell and Una's Lute are done.",
         quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points.",
         ascendancy: "None yet. Ascendancy points are earned from trials later and are not skill points.",
         nodes: [
@@ -8732,7 +8732,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-13-22": {
-        budget: "Level 22 target: about 25 regular passives, or 27 if Kabala in Act 2 is already done.",
+        budget: "Level 22 target: about 25 regular skill points, or 27 if Kabala in Act 2 is already done.",
         quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
         ascendancy: "Plan Deadeye, but do not spend regular points as if they were ascendancy points.",
         nodes: [
@@ -8742,7 +8742,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-23-31": {
-        budget: "Level 31 target: about 38 regular passives from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
+        budget: "Level 31 target: about 38 regular skill points from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
         quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
         ascendancy: "First 2 Deadeye points: Gathering Winds. Take Tailwind before greedier Deadeye damage.",
         nodes: [
@@ -8752,7 +8752,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-32-44": {
-        budget: "Level 44 target: about 55 regular passives after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
+        budget: "Level 44 target: about 55 regular skill points after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
         quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
         refund: "If Hail and cold penetration are now online, refund temporary accuracy or generic projectile detours that no longer beat the cold route.",
         ascendancy: "At 4 Deadeye points, keep Gathering Winds plus Called Shots for safer bossing, or refund into Endless Munitions if clear speed is the priority.",
@@ -8763,7 +8763,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-45-60": {
-        budget: "Level 60 target: about 75 regular passives after Act 4, or 77 if the first Interlude +2 is done.",
+        budget: "Level 60 target: about 75 regular skill points after Act 4, or 77 if the first Interlude +2 is done.",
         quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
         refund: "Gold-refund the 4-point Deadeye bossing setup if you want the 6-point Gathering Winds plus Endless Munitions route shown in the screenshot.",
         ascendancy: "6-point clear target shown: Gathering Winds plus Endless Munitions. Called Shots remains the defensive alternative.",
@@ -8774,7 +8774,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-61-75": {
-        budget: "Level 75 target: 98 regular passives if all 24 campaign and interlude points are complete.",
+        budget: "Level 75 target: 98 regular skill points if all 24 campaign and interlude points are complete.",
         quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
         refund: "Refund early bridge nodes that are only connecting now-dead branches; keep the cold, evasion, projectile, and bow packages.",
         ascendancy: "8-point Deadeye target shown: Gathering Winds, Endless Munitions, and Mirage Deadeye. Bossing alternative is Gathering Winds, Called Shots, Bullseye, and Mirage Deadeye.",
@@ -8785,7 +8785,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-endgame": {
-        budget: "Level 90 target: 113 regular passives (89 from levels plus 24 campaign/weapon-set quest points). Level 100's 123-point ceiling is luxury, not the target build.",
+        budget: "Endgame / Final Form target: 113 regular skill points at character level 90 (89 from levels plus 24 campaign/weapon-set quest points).",
         quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
         refund: "Treat the level 90 tree as the optimized route. Refund redundant campaign damage, accuracy, or travel points before adding jewels.",
         ascendancy: "Keep one 8-point Deadeye package. Do not count ascendancy notables as regular skill points.",
@@ -8801,7 +8801,7 @@ const SKILL_TREE_GUIDES = {
     imageSlug: "lightning-arrow",
     panels: {
       "level-1-12": {
-        budget: "Level 12 target: 11 regular passives from levels, up to 15 if Crowbell and Una's Lute are done.",
+        budget: "Level 12 target: 11 regular skill points from levels, up to 15 if Crowbell and Una's Lute are done.",
         quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points.",
         ascendancy: "None yet. Ascendancy points come from trials later and are capped separately.",
         nodes: [
@@ -8811,7 +8811,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-13-22": {
-        budget: "Level 22 target: about 25 regular passives, or 27 if Kabala in Act 2 is already done.",
+        budget: "Level 22 target: about 25 regular skill points, or 27 if Kabala in Act 2 is already done.",
         quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
         ascendancy: "Plan Deadeye, but keep the passive tree route independent from the ascendancy route.",
         nodes: [
@@ -8821,7 +8821,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-23-31": {
-        budget: "Level 31 target: about 38 regular passives from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
+        budget: "Level 31 target: about 38 regular skill points from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
         quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
         ascendancy: "First 2 Deadeye points: Gathering Winds. Later Deadeye choices must fit inside the same 8-point cap.",
         nodes: [
@@ -8831,7 +8831,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-32-44": {
-        budget: "Level 44 target: about 55 regular passives after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
+        budget: "Level 44 target: about 55 regular skill points after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
         quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
         refund: "Refund early generic damage detours once lightning penetration and shock nodes fit within the route.",
         ascendancy: "At 4 Deadeye points, keep Gathering Winds plus Called Shots for safer bossing, or refund into Endless Munitions if clear speed is the priority.",
@@ -8842,7 +8842,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-45-60": {
-        budget: "Level 60 target: about 75 regular passives after Act 4, or 77 if the first Interlude +2 is done.",
+        budget: "Level 60 target: about 75 regular skill points after Act 4, or 77 if the first Interlude +2 is done.",
         quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
         refund: "Gold-refund the 4-point Deadeye bossing setup if you want the 6-point Gathering Winds plus Endless Munitions route shown in the screenshot.",
         ascendancy: "6-point clear target shown: Gathering Winds plus Endless Munitions. Called Shots remains the defensive alternative.",
@@ -8853,7 +8853,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-61-75": {
-        budget: "Level 75 target: 98 regular passives if all 24 campaign and interlude points are complete.",
+        budget: "Level 75 target: 98 regular skill points if all 24 campaign and interlude points are complete.",
         quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
         refund: "Drop redundant campaign bridges before buying extra projectile wheels; the level 75 screenshot stays within the 98-point regular budget.",
         ascendancy: "8-point Deadeye target shown: Gathering Winds, Endless Munitions, and Mirage Deadeye. Bossing alternative is Gathering Winds, Called Shots, Bullseye, and Mirage Deadeye.",
@@ -8864,7 +8864,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-endgame": {
-        budget: "Level 90 target: 113 regular passives (89 from levels plus 24 campaign/weapon-set quest points). Level 100's 123-point ceiling is luxury, not the target build.",
+        budget: "Endgame / Final Form target: 113 regular skill points at character level 90 (89 from levels plus 24 campaign/weapon-set quest points).",
         quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
         refund: "Treat the level 90 tree as the optimized route. Refund old campaign damage and travel nodes before adding jewels or luxury crit.",
         ascendancy: "Keep one 8-point Deadeye package. Do not count ascendancy notables as regular skill points.",
@@ -8880,7 +8880,7 @@ const SKILL_TREE_GUIDES = {
     imageSlug: "bow-variants",
     panels: {
       "level-1-12": {
-        budget: "Level 12 target: 11 regular passives from levels, up to 15 if Crowbell and Una's Lute are done.",
+        budget: "Level 12 target: 11 regular skill points from levels, up to 15 if Crowbell and Una's Lute are done.",
         quest: "Quest check: Crowbell and Lost Lute are the first +4 campaign points.",
         ascendancy: "None yet. The screenshots default to Pathfinder poison once ascendancy is available.",
         nodes: [
@@ -8890,7 +8890,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-13-22": {
-        budget: "Level 22 target: about 25 regular passives, or 27 if Kabala in Act 2 is already done.",
+        budget: "Level 22 target: about 25 regular skill points, or 27 if Kabala in Act 2 is already done.",
         quest: "Quest check: finish Act 1's +4 and take Kabala's +2 when the route reaches Keth.",
         ascendancy: "Plan Pathfinder poison for the shown route. Deadeye variants use a different ascendancy route later.",
         nodes: [
@@ -8900,7 +8900,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-23-31": {
-        budget: "Level 31 target: about 38 regular passives from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
+        budget: "Level 31 target: about 38 regular skill points from levels plus Acts 1-2, or 40 if Mighty Silverfist is done early.",
         quest: "Quest check: Act 2 should add +4 total; Mighty Silverfist is the first Act 3 +2.",
         refund: "Once the variant is chosen, refund the unused Deadeye bridge or poison bridge instead of carrying both.",
         ascendancy: "First 2 Pathfinder points shown: Enduring Elixirs. Deadeye variants instead take Gathering Winds.",
@@ -8911,7 +8911,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-32-44": {
-        budget: "Level 44 target: about 55 regular passives after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
+        budget: "Level 44 target: about 55 regular skill points after Acts 1-3, or 59 if Act 4's two +2 rewards are already complete.",
         quest: "Quest check: Act 3 adds Mighty Silverfist and Sacrificial Heart; Act 4 adds Omniphobia and Yama.",
         refund: "Use gold refunds to collapse from the shared leveling path into one variant. The screenshot is the optimized Pathfinder poison route.",
         ascendancy: "4-point Pathfinder target shown: Enduring Elixirs plus Overwhelming Toxicity.",
@@ -8922,7 +8922,7 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-45-60": {
-        budget: "Level 60 target: about 75 regular passives after Act 4, or 77 if the first Interlude +2 is done.",
+        budget: "Level 60 target: about 75 regular skill points after Act 4, or 77 if the first Interlude +2 is done.",
         quest: "Quest check: Act 4 brings the total to +16; Akthi and Anundr add the first Interlude +2.",
         refund: "Keep only the chosen variant's damage package. Fire and Tornado nodes are not selected on the Pathfinder poison screenshot.",
         ascendancy: "6-point Pathfinder target shown: Enduring Elixirs, Overwhelming Toxicity, and Sustainable Practices.",
@@ -8933,10 +8933,10 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-61-75": {
-        budget: "Level 75 target: 98 regular passives if all 24 campaign and interlude points are complete.",
+        budget: "Level 75 target: 98 regular skill points if all 24 campaign and interlude points are complete.",
         quest: "Quest check: finish both remaining Interludes, Oswin, and the Hooded One turn-in for the final +6.",
         refund: "Refund the unused variant branch before adding jewel sockets or secondary projectile wheels.",
-        ascendancy: "8-point Pathfinder target shown adds the Path Seeker package. It spends ascendancy points and is not free. Deadeye variants rebuild into their own 8-point package.",
+        ascendancy: "8-point Pathfinder target shown adds Relentless Pursuit so the regular tree remains the 113-point level 90 plan. Deadeye variants rebuild into their own 8-point package.",
         nodes: [
           "Pathfinder finish: Low Tolerance, Stacking Toxins, Lasting Toxins, Wasting, Efficient Alchemy, Imbibed Power, Crystal Elixir, and projectile support.",
           "Deadeye finish: Gathering Winds plus either the Endless Munitions clear package or the Called Shots/Bullseye bossing package.",
@@ -8944,10 +8944,10 @@ const SKILL_TREE_GUIDES = {
         ]
       },
       "level-endgame": {
-        budget: "Level 90 target: 113 regular passives (89 from levels plus 24 campaign/weapon-set quest points). Level 100's 123-point ceiling is luxury, not the target build.",
+        budget: "Endgame / Final Form target: 113 regular skill points at character level 90 (89 from levels plus 24 campaign/weapon-set quest points).",
         quest: "Quest check: use the tree's weapon-set counter to confirm 24 quest points before judging the final route.",
         refund: "Treat the level 90 screenshot as the optimized Pathfinder poison route. Detonating Arrow and Tornado are separate rebuilds, not extra branches to keep.",
-        ascendancy: "Path Seeker can add passive skill points only by spending limited Pathfinder ascendancy points; do not count it on Deadeye variants.",
+        ascendancy: "Pathfinder Final Form uses Relentless Pursuit in the screenshot. Path Seeker is a separate respec because its granted passives change the regular point budget.",
         nodes: [
           "Poison endgame shown: finish Low Tolerance, Stacking Toxins, Lasting Toxins, Wasting, Efficient Alchemy, Imbibed Power, projectile support, and poison jewels.",
           "Detonating endgame rebuild: finish Searing Heat, Forces of Nature, projectile damage, and critical nodes only if the bow supports crit.",
@@ -9196,6 +9196,7 @@ function createSkillTreePlan(document, guide, panelId, plan) {
 
 function createSkillTreeScreenshot(document, guide, panelId) {
   const levelSlug = panelId.replace(/^levels?-/, "");
+  const levelLabel = levelSlug === "endgame" ? "Final Form" : levelSlug;
   const imagePath = `assets/skill-tree/${guide.imageSlug}-${levelSlug}.svg`;
   const figure = document.createElement("figure");
   const image = document.createElement("img");
@@ -9203,9 +9204,9 @@ function createSkillTreeScreenshot(document, guide, panelId) {
 
   figure.className = "skill-tree-screenshot";
   image.src = new URL(imagePath, window.location.href).href;
-  image.alt = `Selected passive tree nodes for ${levelSlug}`;
+  image.alt = `Selected passive tree nodes for ${levelLabel}`;
   image.loading = "eager";
-  caption.textContent = "Selected route snapshot generated from the GGG 0.5.0 passive tree export; regular passive and ascendancy panes use separate point pools.";
+  caption.textContent = "Selected route snapshot generated from the GGG 0.5.0 passive tree export and PoB2 formula-weighted route scoring; regular skill points and ascendancy points use separate pools.";
 
   figure.append(image, caption);
   return figure;

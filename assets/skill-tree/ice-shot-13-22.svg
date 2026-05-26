@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="Ice Shot Deadeye 13-22 selected passive tree nodes">
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="Ice Shot Deadeye 13-22 selected skill tree nodes">
 <defs><pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M 44 0 L 0 0 0 44" fill="none" stroke="#263040" stroke-width="1"/></pattern><filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
 <rect width="100%" height="100%" fill="#0f1218"/>
 <rect x="0" y="0" width="100%" height="100%" fill="url(#grid)" opacity="0.16"/>
 <text x="36" y="42" fill="#f5d28d" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Ice Shot Deadeye 13-22</text>
-<text x="36" y="70" fill="#aeb7c8" font-family="Segoe UI, Arial, sans-serif" font-size="17">Gold path = allocated route, cyan ring = priority node, regular passives: 27, ascendancy passives: 0/8 separate</text>
+<text x="36" y="70" fill="#aeb7c8" font-family="Segoe UI, Arial, sans-serif" font-size="17">Gold path = allocated route, cyan ring = priority node, regular skill points: 27/27, ascendancy points: 0/8 separate</text>
 <g>
 <clipPath id="pane-0"><rect x="36" y="140" width="1368" height="708" rx="14"/></clipPath>
 <rect x="36" y="88" width="1368" height="760" rx="18" fill="#151a22" stroke="#31394a"/>
@@ -65,9 +65,9 @@
 <line x1="949.4" y1="305.6" x2="971.7" y2="285.6" stroke="#e9b95f" stroke-width="3.2" opacity="0.95"/>
 <line x1="949.4" y1="305.6" x2="933.1" y2="366.3" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="971.7" y1="285.6" x2="965.8" y2="254.8" stroke="#e9b95f" stroke-width="3.2" opacity="0.95"/>
-<line x1="971.7" y1="285.6" x2="1001.3" y2="275.4" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
+<line x1="971.7" y1="285.6" x2="1001.3" y2="275.4" stroke="#e9b95f" stroke-width="3.2" opacity="0.95"/>
 <line x1="965.8" y1="254.8" x2="1011.8" y2="241.2" stroke="#e9b95f" stroke-width="3.2" opacity="0.95"/>
-<line x1="1011.8" y1="241.2" x2="1001.3" y2="275.4" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
+<line x1="1011.8" y1="241.2" x2="1001.3" y2="275.4" stroke="#e9b95f" stroke-width="3.2" opacity="0.95"/>
 <line x1="936.8" y1="637.2" x2="960.2" y2="614.6" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="1018.5" y1="821.0" x2="982.8" y2="819.7" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="1018.5" y1="821.0" x2="1042.7" y2="812.6" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
@@ -298,6 +298,7 @@
 <circle cx="971.7" cy="285.6" r="6.5" fill="#e9b95f" stroke="#f8d987" stroke-width="1.4" opacity="1"/>
 <circle cx="965.8" cy="254.8" r="6.5" fill="#e9b95f" stroke="#f8d987" stroke-width="1.4" opacity="1"/>
 <circle cx="1011.8" cy="241.2" r="10" fill="#45e3ff" stroke="#f8d987" stroke-width="3" opacity="1" filter="url(#glow)"/>
+<circle cx="1001.3" cy="275.4" r="10" fill="#45e3ff" stroke="#f8d987" stroke-width="3" opacity="1" filter="url(#glow)"/>
 <circle cx="533.1" cy="174.4" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="936.8" cy="637.2" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="1018.5" cy="821.0" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
@@ -449,7 +450,6 @@
 <circle cx="810.5" cy="370.6" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="962.8" cy="215.0" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="866.2" cy="735.4" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
-<circle cx="1001.3" cy="275.4" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="661.9" cy="631.2" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="902.5" cy="329.4" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="773.1" cy="829.9" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
@@ -508,6 +508,7 @@
 <text x="640.4" y="600.9" text-anchor="start" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Catlike Agility</text>
 <text x="636.7" y="746.8" text-anchor="start" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Careful Aim</text>
 <text x="997.8" y="259.2" text-anchor="end" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Agile Succession</text>
+<text x="987.3" y="257.4" text-anchor="end" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Evasion Rating on Hit Re...</text>
 </g>
 </g>
 </svg>

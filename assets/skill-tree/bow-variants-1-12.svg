@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="Bow Variants 1-12 selected passive tree nodes">
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="Bow Variants 1-12 selected skill tree nodes">
 <defs><pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M 44 0 L 0 0 0 44" fill="none" stroke="#263040" stroke-width="1"/></pattern><filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
 <rect width="100%" height="100%" fill="#0f1218"/>
 <rect x="0" y="0" width="100%" height="100%" fill="url(#grid)" opacity="0.16"/>
 <text x="36" y="42" fill="#f5d28d" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Bow Variants 1-12</text>
-<text x="36" y="70" fill="#aeb7c8" font-family="Segoe UI, Arial, sans-serif" font-size="17">Gold path = allocated route, cyan ring = priority node, regular passives: 15, ascendancy passives: 0/8 separate</text>
+<text x="36" y="70" fill="#aeb7c8" font-family="Segoe UI, Arial, sans-serif" font-size="17">Gold path = allocated route, cyan ring = priority node, regular skill points: 15/15, ascendancy points: 0/8 separate</text>
 <g>
 <clipPath id="pane-0"><rect x="36" y="140" width="1368" height="708" rx="14"/></clipPath>
 <rect x="36" y="88" width="1368" height="760" rx="18" fill="#151a22" stroke="#31394a"/>
@@ -34,7 +34,7 @@
 <line x1="668.6" y1="697.8" x2="628.3" y2="772.0" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="692.5" y1="532.6" x2="618.5" y2="458.5" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="692.5" y1="532.6" x2="723.7" y2="512.5" stroke="#e9b95f" stroke-width="3.2" opacity="0.95"/>
-<line x1="692.5" y1="532.6" x2="788.2" y2="571.7" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
+<line x1="692.5" y1="532.6" x2="788.2" y2="571.7" stroke="#e9b95f" stroke-width="3.2" opacity="0.95"/>
 <line x1="692.5" y1="532.6" x2="664.9" y2="485.3" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="692.5" y1="532.6" x2="645.3" y2="505.0" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="692.5" y1="532.6" x2="775.4" y2="524.4" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
@@ -45,6 +45,7 @@
 <line x1="723.7" y1="512.5" x2="762.5" y2="476.3" stroke="#e9b95f" stroke-width="3.2" opacity="0.95"/>
 <line x1="762.5" y1="476.3" x2="793.0" y2="493.9" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="762.5" y1="476.3" x2="774.4" y2="424.7" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
+<line x1="788.2" y1="571.7" x2="843.7" y2="579.2" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="726.4" y1="360.8" x2="681.9" y2="326.8" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="765.0" y1="764.3" x2="724.2" y2="769.6" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="765.0" y1="764.3" x2="797.5" y2="789.3" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
@@ -95,7 +96,6 @@
 <line x1="907.2" y1="631.8" x2="843.7" y2="579.2" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="435.0" y1="736.6" x2="474.4" y2="821.1" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="843.7" y1="579.2" x2="826.1" y2="609.6" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
-<line x1="843.7" y1="579.2" x2="788.2" y2="571.7" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="861.2" y1="658.4" x2="926.5" y2="683.0" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="580.6" y1="420.6" x2="593.6" y2="483.4" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
 <line x1="802.9" y1="830.0" x2="797.5" y2="789.3" stroke="#30394a" stroke-width="1.2" opacity="0.42"/>
@@ -116,6 +116,7 @@
 <circle cx="925.6" cy="431.6" r="10" fill="#45e3ff" stroke="#f8d987" stroke-width="3" opacity="1" filter="url(#glow)"/>
 <circle cx="723.7" cy="512.5" r="6.5" fill="#e9b95f" stroke="#f8d987" stroke-width="1.4" opacity="1"/>
 <circle cx="762.5" cy="476.3" r="10" fill="#45e3ff" stroke="#f8d987" stroke-width="3" opacity="1" filter="url(#glow)"/>
+<circle cx="788.2" cy="571.7" r="10" fill="#45e3ff" stroke="#f8d987" stroke-width="3" opacity="1" filter="url(#glow)"/>
 <circle cx="726.4" cy="360.8" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="765.0" cy="764.3" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="1033.5" cy="781.1" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
@@ -170,7 +171,6 @@
 <circle cx="774.4" cy="424.7" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="664.9" cy="485.3" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="802.9" cy="830.0" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
-<circle cx="788.2" cy="571.7" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="970.2" cy="469.0" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="926.5" cy="683.0" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
 <circle cx="908.0" cy="462.1" r="3.2" fill="#485269" stroke="#202838" stroke-width="1.4" opacity="0.42"/>
@@ -188,6 +188,7 @@
 <text x="706.5" y="532.6" text-anchor="start" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Blur</text>
 <text x="911.6" y="449.6" text-anchor="end" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Clean Shot</text>
 <text x="776.5" y="458.3" text-anchor="start" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Combat Alchemy</text>
+<text x="802.2" y="571.7" text-anchor="start" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Flask Charges Gained</text>
 </g>
 </g>
 </svg>
