@@ -8640,6 +8640,7 @@ const tabs = Array.from(document.querySelectorAll("[data-guide-tab]"));
 
 const SKILL_TREE_GUIDES = {
   "source-shield-wall": {
+    imageSlug: "shield-wall",
     panels: {
       "levels-1-12": {
         budget: "Level 12 target: 11 passives from levels, up to 15 if Crowbell and Una's Lute are done.",
@@ -8707,6 +8708,7 @@ const SKILL_TREE_GUIDES = {
     }
   },
   "source-ice-shot": {
+    imageSlug: "ice-shot",
     panels: {
       "level-1-12": {
         budget: "Level 12 target: 11 passives from levels, up to 15 if Crowbell and Una's Lute are done.",
@@ -8774,6 +8776,7 @@ const SKILL_TREE_GUIDES = {
     }
   },
   "source-lightning-arrow": {
+    imageSlug: "lightning-arrow",
     panels: {
       "level-1-12": {
         budget: "Level 12 target: 11 passives from levels, up to 15 if Crowbell and Una's Lute are done.",
@@ -8841,6 +8844,7 @@ const SKILL_TREE_GUIDES = {
     }
   },
   "source-other-bow-variants": {
+    imageSlug: "bow-variants",
     panels: {
       "level-1-12": {
         budget: "Level 12 target: 11 passives from levels, up to 15 if Crowbell and Una's Lute are done.",
@@ -8970,7 +8974,7 @@ function injectSkillTreePlans(sourceId) {
       continue;
     }
 
-    const card = createSkillTreePlan(guideDocument, plan);
+    const card = createSkillTreePlan(guideDocument, guide, panelId, plan);
     const body = panel.querySelector(".body") || panel;
     const levelHeader = body.querySelector(".level-header");
     const firstHeading = body.querySelector("h3");
@@ -9013,6 +9017,25 @@ function injectSkillTreeStyles(document) {
 .skill-tree-plan p {
   margin: 0 0 10px;
   color: var(--muted);
+}
+
+.skill-tree-screenshot {
+  margin: 0 0 14px;
+}
+
+.skill-tree-screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0f1218;
+}
+
+.skill-tree-screenshot figcaption {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .skill-tree-plan ul {
@@ -9088,7 +9111,7 @@ function appendSkillTreeGridSource(document, sourceGrid) {
   }
 }
 
-function createSkillTreePlan(document, plan) {
+function createSkillTreePlan(document, guide, panelId, plan) {
   const card = document.createElement("section");
   card.className = "skill-tree-plan";
 
@@ -9096,6 +9119,7 @@ function createSkillTreePlan(document, plan) {
   heading.textContent = "Skill Tree Nodes";
   card.append(heading);
 
+  card.append(createSkillTreeScreenshot(document, guide, panelId));
   appendPlanLine(document, card, "Budget", plan.budget);
   appendPlanLine(document, card, "Quest points", plan.quest);
 
@@ -9109,6 +9133,23 @@ function createSkillTreePlan(document, plan) {
 
   card.append(list);
   return card;
+}
+
+function createSkillTreeScreenshot(document, guide, panelId) {
+  const levelSlug = panelId.replace(/^levels?-/, "");
+  const imagePath = `assets/skill-tree/${guide.imageSlug}-${levelSlug}.svg`;
+  const figure = document.createElement("figure");
+  const image = document.createElement("img");
+  const caption = document.createElement("figcaption");
+
+  figure.className = "skill-tree-screenshot";
+  image.src = new URL(imagePath, window.location.href).href;
+  image.alt = `Selected passive tree nodes for ${levelSlug}`;
+  image.loading = "eager";
+  caption.textContent = "Selected route snapshot generated from the GGG 0.5.0 passive tree export.";
+
+  figure.append(image, caption);
+  return figure;
 }
 
 function appendPlanLine(document, card, label, value) {
