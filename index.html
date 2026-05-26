@@ -8638,6 +8638,37 @@ const frame = document.getElementById("guide-frame");
 const note = document.getElementById("active-guide-note");
 const tabs = Array.from(document.querySelectorAll("[data-guide-tab]"));
 
+const SKILL_TREE_IMAGE_HASHES = {
+  "assets/skill-tree/bow-variants-1-12.svg": "48b5c1115efa",
+  "assets/skill-tree/bow-variants-13-22.svg": "e2ba047fabfd",
+  "assets/skill-tree/bow-variants-23-31.svg": "8a1ba4aee443",
+  "assets/skill-tree/bow-variants-32-44.svg": "ce104ff33d75",
+  "assets/skill-tree/bow-variants-45-60.svg": "d4eb3cb3063b",
+  "assets/skill-tree/bow-variants-61-75.svg": "a2e8c9c4c292",
+  "assets/skill-tree/bow-variants-endgame.svg": "6a0303826339",
+  "assets/skill-tree/ice-shot-1-12.svg": "3010008f846a",
+  "assets/skill-tree/ice-shot-13-22.svg": "17b07a41dac8",
+  "assets/skill-tree/ice-shot-23-31.svg": "6fe2e9ec05e6",
+  "assets/skill-tree/ice-shot-32-44.svg": "f8b5e72cedb3",
+  "assets/skill-tree/ice-shot-45-60.svg": "d1b510caafd4",
+  "assets/skill-tree/ice-shot-61-75.svg": "e2274b0046b2",
+  "assets/skill-tree/ice-shot-endgame.svg": "59109949f456",
+  "assets/skill-tree/lightning-arrow-1-12.svg": "ae73cd9656ba",
+  "assets/skill-tree/lightning-arrow-13-22.svg": "c7d658338c06",
+  "assets/skill-tree/lightning-arrow-23-31.svg": "451f5d0ac1c9",
+  "assets/skill-tree/lightning-arrow-32-44.svg": "0b861552d69c",
+  "assets/skill-tree/lightning-arrow-45-60.svg": "3cfe31b63f11",
+  "assets/skill-tree/lightning-arrow-61-75.svg": "91941c45e6ec",
+  "assets/skill-tree/lightning-arrow-endgame.svg": "00cfe9ffa844",
+  "assets/skill-tree/shield-wall-1-12.svg": "25183d417270",
+  "assets/skill-tree/shield-wall-13-22.svg": "8eb9e5b29329",
+  "assets/skill-tree/shield-wall-23-31.svg": "361e15c505c9",
+  "assets/skill-tree/shield-wall-32-44.svg": "1c5625849f1d",
+  "assets/skill-tree/shield-wall-45-60.svg": "1b736994d484",
+  "assets/skill-tree/shield-wall-61-75.svg": "fb21980b63cc",
+  "assets/skill-tree/shield-wall-endgame.svg": "8c7b00055619"
+};
+
 const SKILL_TREE_GUIDES = {
   "source-shield-wall": {
     imageSlug: "shield-wall",
@@ -9203,13 +9234,24 @@ function createSkillTreeScreenshot(document, guide, panelId) {
   const caption = document.createElement("figcaption");
 
   figure.className = "skill-tree-screenshot";
-  image.src = new URL(imagePath, window.location.href).href;
+  image.src = getHashedAssetUrl(imagePath);
   image.alt = `Selected passive tree nodes for ${levelLabel}`;
   image.loading = "eager";
   caption.textContent = "Selected route snapshot generated from the GGG 0.5.0 passive tree export and PoB2 formula-weighted route scoring; regular skill points and ascendancy points use separate pools.";
 
   figure.append(image, caption);
   return figure;
+}
+
+function getHashedAssetUrl(imagePath) {
+  const assetUrl = new URL(imagePath, window.location.href);
+  const hash = SKILL_TREE_IMAGE_HASHES[imagePath];
+
+  if (hash) {
+    assetUrl.searchParams.set("v", hash);
+  }
+
+  return assetUrl.href;
 }
 
 function appendPlanLine(document, card, label, value) {

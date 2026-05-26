@@ -1,7 +1,9 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
 const OUT_DIR = path.join(process.cwd(), "assets", "skill-tree");
+const INDEX_PATH = path.join(process.cwd(), "index.html");
 const DATA_URL = "https://raw.githubusercontent.com/grindinggear/poe2-skilltree-export/0.5.0/data.json";
 
 const LEVEL_BUDGETS = {
@@ -128,7 +130,7 @@ const GUIDES = {
       "32-44": { seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336"], ascendancy: ["30", "59913"] },
       "45-60": { seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336", "56999", "8904", "11526"], ascendancy: ["30", "12033"] },
       "61-75": { seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336", "56999", "8904", "11526", "35477", "60764", "23221", "47560"], ascendancy: ["30", "12033", "5817"] },
-      endgame: { label: "Final Form", seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336", "56999", "8904", "11526", "35477", "60764", "23221", "47560"], ascendancy: ["30", "12033", "5817"] }
+      endgame: { label: "Final Form", seeds: ["28992", "35987", "42781", "20831", "50795", "56493", "17854", "32683", "44974", "9421", "38329", "336", "56999", "8904", "11526", "35477", "60764", "23221", "47560"], labels: ["45013", "11410"], labelAliases: { "11410": "Damage vs Low Life" }, ascendancy: ["30", "12033", "5817"] }
     }
   },
   "lightning-arrow": {
@@ -217,6 +219,8 @@ for (const [slug, guide] of Object.entries(GUIDES)) {
   }
 }
 
+writeImageHashesToIndex();
+
 function buildAdjacency() {
   const result = new Map();
 
@@ -225,6 +229,38 @@ function buildAdjacency() {
   }
 
   return result;
+}
+
+function writeImageHashesToIndex() {
+  const html = fs.readFileSync(INDEX_PATH, "utf8");
+  const hashes = formatImageHashes(buildImageHashes());
+  const nextHtml = html.replace(/const SKILL_TREE_IMAGE_HASHES = \{[\s\S]*?\};/, `const SKILL_TREE_IMAGE_HASHES = ${hashes};`);
+
+  if (nextHtml === html) {
+    throw new Error("Could not find SKILL_TREE_IMAGE_HASHES in index.html");
+  }
+
+  fs.writeFileSync(INDEX_PATH, nextHtml);
+}
+
+function buildImageHashes() {
+  const hashes = [];
+
+  for (const [slug, guide] of Object.entries(GUIDES)) {
+    for (const level of Object.keys(guide.panels)) {
+      const imagePath = `assets/skill-tree/${slug}-${level}.svg`;
+      const filePath = path.join(process.cwd(), imagePath);
+      const hash = crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex").slice(0, 12);
+      hashes.push([imagePath, hash]);
+    }
+  }
+
+  return hashes.sort(([left], [right]) => left.localeCompare(right));
+}
+
+function formatImageHashes(hashes) {
+  const entries = hashes.map(([imagePath, hash]) => `  "${imagePath}": "${hash}"`);
+  return `{\n${entries.join(",\n")}\n}`;
 }
 
 async function fetchSkillTreeData() {
@@ -242,10 +278,13 @@ function buildRoute(guide, panel, budget) {
   const ascendancy = buildAscendancyRoute(panel.ascendancy);
   const selected = new Set([...regular.selected, ...ascendancy.selected]);
   const targets = new Set([...panel.seeds, ...panel.ascendancy, ...regular.fillTargets]);
+  const labels = new Set(panel.labels || []);
 
   return {
+    labelAliases: panel.labelAliases || {},
     regularStart: guide.start,
     selected,
+    labels,
     targets
   };
 }
@@ -666,13 +705,13 @@ function renderSvg(title, route, budget) {
     `<text x="36" y="70" fill="#aeb7c8" font-family="Segoe UI, Arial, sans-serif" font-size="17">Gold path = allocated route, cyan ring = priority node, regular skill points: ${normalCount}/${budget}, ascendancy points: ${ascendancyCount}/8 separate</text>`
   ];
 
-  panes.forEach((pane, index) => parts.push(renderPane(pane, route.selected, route.targets, index)));
+  panes.forEach((pane, index) => parts.push(renderPane(pane, route.selected, route.targets, route.labels, route.labelAliases, index)));
   parts.push("</svg>");
 
   return parts.join("\n");
 }
 
-function renderPane(pane, selected, targets, index) {
+function renderPane(pane, selected, targets, labels, labelAliases, index) {
   const coords = pane.ids.map((id) => nodes[id]).filter((node) => Number.isFinite(node.x) && Number.isFinite(node.y));
   const minX = Math.min(...coords.map((node) => node.x));
   const maxX = Math.max(...coords.map((node) => node.x));
@@ -683,6 +722,9 @@ function renderPane(pane, selected, targets, index) {
   const background = getBackgroundNodes(bounds, pane.type, pane.ids);
   const paneSelected = new Set(pane.ids);
   const targetIds = new Set([...targets].filter((id) => paneSelected.has(id)));
+  const defaultLabelIds = [...targetIds].filter((id) => nodes[id].name).slice(0, 18);
+  const priorityLabelIds = [...labels].filter((id) => paneSelected.has(id) && nodes[id].name && !defaultLabelIds.includes(id));
+  const labelIds = [...defaultLabelIds, ...priorityLabelIds];
   const scale = Math.min(
     pane.width / Math.max(1, bounds.maxX - bounds.minX),
     (pane.height - 52) / Math.max(1, bounds.maxY - bounds.minY)
@@ -724,13 +766,14 @@ function renderPane(pane, selected, targets, index) {
     parts.push(`<circle cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${radius}" fill="${fill}" stroke="${stroke}" stroke-width="${isTarget ? 3 : 1.4}" opacity="${opacity}"${filter}/>`);
   }
 
-  [...targetIds].filter((id) => nodes[id].name).slice(0, 18).forEach((id, labelIndex) => {
+  labelIds.forEach((id, labelIndex) => {
     const node = nodes[id];
     const point = project(node);
     const anchorRight = point.x < pane.x + pane.width * 0.64;
     const labelX = anchorRight ? point.x + 14 : point.x - 14;
     const labelY = point.y + ((labelIndex % 3) - 1) * 18;
-    const text = node.name.length > 26 ? `${node.name.slice(0, 24)}...` : node.name;
+    const label = labelAliases[id] || node.name;
+    const text = label.length > 26 ? `${label.slice(0, 24)}...` : label;
     parts.push(`<text x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${anchorRight ? "start" : "end"}" fill="#f8f2df" stroke="#0f1218" stroke-width="4" paint-order="stroke" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">${escapeXml(text)}</text>`);
   });
 
